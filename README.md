@@ -1,3 +1,3 @@
 # blocked
-blacklisted ip addresses and asn
+blacklisted ip addresses and asn 
 used in varnish
