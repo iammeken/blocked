@@ -36,3 +36,13 @@ acl forbidden {
 "64.124.8.0/24";
 "95.211.0.0/16";
 }
+
+sub vcl_recv {
+set req.http.Country-Code = country.lookup("country/iso_code", std.ip(req.http.x-real-ip));
+set req.http.ASN = asn.lookup("autonomous_system_number", std.ip(req.http.x-real-ip));
+set req.http.ASN-ORG = asn.lookup("autonomous_system_organization", std.ip(req.http.x-real-ip));
+
+
+if (req.http.ASN-ORG ~ "(?i)DREAMHOST")
+{return (synth (403));}
+}
